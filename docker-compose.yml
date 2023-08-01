@@ -1,0 +1,33 @@
+version: "3"
+ 
+ 
+services:
+  api:
+    build: ./api
+    restart: always
+    container_name: logquery
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`host.domain.com`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.entrypoints=websecure
+    networks:
+      - public
+ 
+  traefik:
+    image: traefik:latest
+    ports:
+      - 8000:80
+      - 5000:443
+    restart: always
+    container_name: reverse-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $PWD/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - $PWD/certs/:/certs/
+      - $PWD/tls-certs.toml:/tls-certs.toml
+    networks:
+      - public
+ 
+networks:
+  public:

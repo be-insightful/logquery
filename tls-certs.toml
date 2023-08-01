@@ -1,0 +1,3 @@
+[[tls.certificates]] #first certificate
+certFile = "/certs/traefik.crt" # cat domain_crt chain1_crt chain2_crt root_crt > traefik.crt 
+keyFile = "/certs/keyfile.key"

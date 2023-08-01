@@ -1,0 +1,35 @@
+global:
+  checkNewVersion: false
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+
+accessLog: {}
+
+providers:
+  docker:
+    exposedByDefault: false
+  file:
+    filename: "/tls-certs.toml"
+
+# not working -> tls-cert.toml use
+tls:
+  certificates:
+    - certFile: "/certs/traefik.crt"
+      keyFile: "/certs/domain_name.key"
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/certs/traefik.crt"
+        keyFile: "/certs/domain_name.key"
+
+log:
+  level: INFO
