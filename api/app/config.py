@@ -4,8 +4,8 @@ from pydantic import BaseSettings
 
 class ES_Settings(BaseSettings):
     host: str = "https://instance_id.region.es.amazonaws.com"
-    appuser: str = "esuser1"
-    password: str = "password1234"
+    appuser: str = "esuser"
+    password: str = "password"
 
 
 class Athena_Settings(BaseSettings):
